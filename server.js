@@ -4,12 +4,18 @@ const connectDB = require('./config/db');
 const PORT = process.env.PORT || 3000;
 const path = require('path');
 const ejs = require('ejs');
+const cors = require('cors');
 
 app.use(express.static('public'));
 app.use(express.json());
 
 connectDB();
 
+const corsOptions = {
+    origin: process.env.ALLOWED_CLIENTS.split(',')
+}
+
+app.use(cors(corsOptions));
 
 // Template engine
 app.set('views', path.join(__dirname, '/views'));
